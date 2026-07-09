@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@munatech/nepali-datepicker": "^1.2.3",
+    "jsdom": "^20.0.3"
+  }
+}
