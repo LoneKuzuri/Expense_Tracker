@@ -2,65 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budget Tracker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-wrapper">
-    <!-- Header -->
     <header class="app-header">
       <div class="header-content">
         <div class="logo">
           <i class="fas fa-wallet"></i>
-          <h1>Budget Tracker</h1>
+          <div>
+            <h1>Budget Tracker</h1>
+            <p class="subtitle">Track monthly spending, review history, and stay on budget.</p>
+          </div>
         </div>
-        <p class="subtitle">Smart financial management at your fingertips</p>
       </div>
     </header>
 
-    <!-- Main Container -->
     <div class="container">
-      <!-- Control Panel -->
       <div class="control-panel">
         <div class="control-section">
-          <label for="month-select" class="control-label">
-            <i class="fas fa-calendar-alt"></i> Select Month
-          </label>
+          <label for="month-select" class="control-label"><i class="fas fa-calendar-alt"></i> Select Month</label>
           <select id="month-select" class="form-select">
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
+            <option value="Baishakh">Baishakh</option>
+            <option value="Jestha">Jestha</option>
+            <option value="Ashadh">Ashadh</option>
+            <option value="Shrawan">Shrawan</option>
+            <option value="Bhadra">Bhadra</option>
+            <option value="Ashwin">Ashwin</option>
+            <option value="Kartik">Kartik</option>
+            <option value="Mangsir">Mangsir</option>
+            <option value="Poush">Poush</option>
+            <option value="Magh">Magh</option>
+            <option value="Falgun">Falgun</option>
+            <option value="Chaitra">Chaitra</option>
           </select>
         </div>
 
         <div class="control-section">
-          <label for="budget" class="control-label">
-            <i class="fas fa-money-bill-wave"></i> Estimated Budget
-          </label>
-          <div class="input-group">
-            <input type="number" id="budget" class="form-input" placeholder="Enter budget amount" />
-            <button id="setBudget" class="btn btn-primary">
-              <i class="fas fa-check-circle"></i> Set Budget
-            </button>
+          <label for="year-select" class="control-label"><i class="fas fa-calendar-day"></i> Select Year</label>
+          <select id="year-select" class="form-select">
+            <option value="2082">2082</option>
+            <option value="2083">2083</option>
+            <option value="2084">2084</option>
+            <option value="2085">2085</option>
+            <option value="2086">2086</option>
+          </select>
+        </div>
+
+        <div class="control-section">
+          <label for="budget" class="control-label"><i class="fas fa-money-bill-wave"></i> Monthly Budget</label>
+          <input type="number" id="budget" class="form-input" placeholder="Enter budget amount" />
+        </div>
+
+        <div class="control-section control-actions">
+          <button id="setBudget" class="btn btn-primary"><i class="fas fa-check-circle"></i> Set Budget</button>
+          <button id="addBudget" class="btn btn-success"><i class="fas fa-plus-circle"></i> Top Up</button>
+          <button id="resetMonth" class="btn btn-warning"><i class="fas fa-undo"></i> Reset</button>
+        </div>
+      </div>
+
+      <p id="warning-message" class="warning-banner"></p>
+
+      <div class="summary-grid">
+        <div class="summary-card budget-card">
+          <div class="card-icon"><i class="fas fa-piggy-bank"></i></div>
+          <div class="card-content">
+            <p class="card-label">Total Budget</p>
+            <p class="card-value">Rs. <span id="budget-amount">0</span></p>
+          </div>
+        </div>
+
+        <div class="summary-card available-card">
+          <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+          <div class="card-content">
+            <p class="card-label">Available Budget</p>
+            <p class="card-value">Rs. <span id="available-amount">0</span></p>
+          </div>
+        </div>
+
+        <div class="summary-card expense-card">
+          <div class="card-icon"><i class="fas fa-credit-card"></i></div>
+          <div class="card-content">
+            <p class="card-label">Total Expenses</p>
+            <p class="card-value">Rs. <span id="total-expenses">0</span></p>
+          </div>
+        </div>
+
+        <div class="summary-card balance-card">
+          <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+          <div class="card-content">
+            <p class="card-label">Remaining Balance</p>
+            <p class="card-value">Rs. <span id="remaining-balance">0</span></p>
+          </div>
+        </div>
+
+        <div class="summary-card stats-card">
+          <div class="card-icon"><i class="fas fa-list"></i></div>
+          <div class="card-content">
+            <p class="card-label">Expense Count</p>
+            <p class="card-value" id="expense-count">0</p>
+          </div>
+        </div>
+
+        <div class="summary-card average-card">
+          <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="card-content">
+            <p class="card-label">Avg Expense</p>
+            <p class="card-value">Rs. <span id="average-expense">0</span></p>
           </div>
         </div>
       </div>
 
-      <!-- Budget Progress Section -->
-      <div id="budget-progress-section" class="budget-progress-section" style="display:none;">
+      <div id="budget-progress-section" class="budget-progress-section">
         <div class="progress-header">
-          <p id="summary-month" class="month-summary"></p>
+          <p id="month-summary" class="month-summary">Current month overview</p>
           <span id="budget-percentage" class="budget-percentage">0%</span>
         </div>
         <div class="progress-bar-container">
@@ -72,65 +130,57 @@
         </div>
       </div>
 
-      <!-- Alert Messages -->
-      <p id="warning-message" class="warning-banner"></p>
-
-      <!-- Summary Cards -->
-      <div class="summary-grid">
-        <div class="summary-card budget-card">
-          <div class="card-icon">
-            <i class="fas fa-piggy-bank"></i>
+      <div id="history-section" class="history-section">
+        <div class="history-header">
+          <div>
+            <h2 class="section-title"><i class="fas fa-clock"></i> Yearly Overview</h2>
+            <p class="history-subtitle">Review monthly budget health and spending trends for <span id="year-label">2083</span>.</p>
           </div>
-          <div class="card-content">
-            <p class="card-label">Total Budget</p>
-            <p class="card-value">Rs. <span id="budget-amount">0</span></p>
-          </div>
+          <button id="refresh-history" class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Refresh</button>
         </div>
 
-        <div class="summary-card expense-card">
-          <div class="card-icon">
-            <i class="fas fa-credit-card"></i>
-          </div>
-          <div class="card-content">
-            <p class="card-label">Total Expenses</p>
-            <p class="card-value">Rs. <span id="total-expenses">0</span></p>
+        <div id="history-grid" class="history-grid"></div>
+        <div id="history-list" class="history-list"></div>
+      </div>
+
+      <div class="toolbar-grid">
+        <div class="search-group">
+          <label class="control-label">Search expenses</label>
+          <input id="search-expense" class="form-input" type="search" placeholder="Search by name or category" />
+        </div>
+        <div class="search-group">
+          <label class="control-label">BS date range</label>
+          <div class="range-inputs">
+            <input id="date-from" class="form-input" type="text" placeholder="2083-01-01" />
+            <input id="date-to" class="form-input" type="text" placeholder="2083-12-30" />
           </div>
         </div>
-
-        <div class="summary-card balance-card">
-          <div class="card-icon">
-            <i class="fas fa-balance-scale"></i>
-          </div>
-          <div class="card-content">
-            <p class="card-label">Remaining Balance</p>
-            <p class="card-value">Rs. <span id="remaining-balance">0</span></p>
+        <div class="search-group recurring-filter">
+          <label class="control-label">Recurring expenses</label>
+          <div class="checkbox-group">
+            <input id="recurring-only" type="checkbox" />
+            <label for="recurring-only">Show only recurring</label>
           </div>
         </div>
-
-        <div class="summary-card stats-card">
-          <div class="card-icon">
-            <i class="fas fa-chart-pie"></i>
-          </div>
-          <div class="card-content">
-            <p class="card-label">Total Expenses</p>
-            <p class="card-value" id="expense-count">0</p>
+        <div class="search-group export-group">
+          <label class="control-label">Import / Export</label>
+          <div class="export-actions">
+            <button id="export-btn" class="btn btn-secondary"><i class="fas fa-download"></i> Export</button>
+            <button id="import-btn" class="btn btn-secondary"><i class="fas fa-upload"></i> Import</button>
           </div>
         </div>
       </div>
 
-      <!-- Add Expense Section -->
       <div class="expense-section">
-        <h2 class="section-title">
-          <i class="fas fa-receipt"></i> Add New Expense
-        </h2>
+        <h2 class="section-title"><i class="fas fa-receipt"></i> Add New Expense</h2>
         <div class="expense-form">
           <div class="form-group">
-            <label for="expense-date" class="form-label">Date</label>
-            <input type="date" id="expense-date" class="form-input" />
+            <label for="expense-date" class="form-label">Nepali Date (BS)</label>
+            <input type="text" id="expense-date" class="form-input" placeholder="2083-01-15" />
           </div>
           <div class="form-group">
             <label for="expense-name" class="form-label">Expense Name</label>
-            <input type="text" id="expense-name" class="form-input" placeholder="e.g., Groceries, Gas, etc." />
+            <input type="text" id="expense-name" class="form-input" placeholder="e.g., Groceries, Gas" />
           </div>
           <div class="form-group">
             <label for="expense-category" class="form-label">Category</label>
@@ -149,65 +199,45 @@
             <label for="expense-budget" class="form-label">Amount (Rs.)</label>
             <input type="number" id="expense-budget" class="form-input" placeholder="0.00" />
           </div>
-          <button id="addExpense" class="btn btn-success btn-full">
-            <i class="fas fa-plus-circle"></i> Add Expense
-          </button>
+          <div class="form-group recurring-group">
+            <label class="form-label">Recurring</label>
+            <div class="checkbox-group">
+              <input id="recurring-expense" type="checkbox" />
+              <label for="recurring-expense">Repeat monthly</label>
+            </div>
+          </div>
+          <div class="form-group form-action-group">
+            <button id="addExpense" class="btn btn-success btn-full"><i class="fas fa-plus-circle"></i> Add Expense</button>
+          </div>
         </div>
       </div>
 
-      <!-- Filter Section -->
       <div id="filter-section" class="filter-section" style="display:none;">
         <h3 class="filter-title"><i class="fas fa-filter"></i> Filter by Category</h3>
         <div class="filter-buttons">
-          <button class="filter-btn active" data-category="All">
-            <i class="fas fa-list"></i> All
-          </button>
-          <button class="filter-btn" data-category="Food">
-            🍔 Food
-          </button>
-          <button class="filter-btn" data-category="Transport">
-            🚗 Transport
-          </button>
-          <button class="filter-btn" data-category="Utilities">
-            💡 Utilities
-          </button>
-          <button class="filter-btn" data-category="Entertainment">
-            🎬 Entertainment
-          </button>
-          <button class="filter-btn" data-category="Shopping">
-            🛍️ Shopping
-          </button>
-          <button class="filter-btn" data-category="Healthcare">
-            ⚕️ Healthcare
-          </button>
-          <button class="filter-btn" data-category="Education">
-            📚 Education
-          </button>
-          <button class="filter-btn" data-category="Other">
-            📌 Other
-          </button>
+          <button class="filter-btn active" data-category="All"><i class="fas fa-list"></i> All</button>
+          <button class="filter-btn" data-category="Food">🍔 Food</button>
+          <button class="filter-btn" data-category="Transport">🚗 Transport</button>
+          <button class="filter-btn" data-category="Utilities">💡 Utilities</button>
+          <button class="filter-btn" data-category="Entertainment">🎬 Entertainment</button>
+          <button class="filter-btn" data-category="Shopping">🛍️ Shopping</button>
+          <button class="filter-btn" data-category="Healthcare">⚕️ Healthcare</button>
+          <button class="filter-btn" data-category="Education">📚 Education</button>
+          <button class="filter-btn" data-category="Other">📌 Other</button>
         </div>
       </div>
 
-      <!-- Category Breakdown -->
       <div id="category-breakdown" class="category-breakdown" style="display:none;">
         <h3 class="section-title"><i class="fas fa-chart-bar"></i> Spending by Category</h3>
         <div id="category-list" class="category-list"></div>
       </div>
 
-      <!-- Expenses Table -->
       <div class="table-section">
         <div class="table-header">
-          <h2 class="section-title">
-            <i class="fas fa-list"></i> Expense History
-          </h2>
+          <h2 class="section-title"><i class="fas fa-list"></i> Expense History</h2>
           <div class="table-actions-header">
-            <button id="sort-btn" class="btn btn-secondary" title="Sort expenses">
-              <i class="fas fa-sort"></i> Sort
-            </button>
-            <button id="clear-all-btn" class="btn btn-danger" style="display:none;" title="Clear all expenses">
-              <i class="fas fa-trash-alt"></i> Clear All
-            </button>
+            <button id="sort-btn" class="btn btn-secondary" title="Sort expenses"><i class="fas fa-sort"></i> Sort</button>
+            <button id="clear-all-btn" class="btn btn-danger" style="display:none;" title="Clear all expenses"><i class="fas fa-trash-alt"></i> Clear All</button>
           </div>
         </div>
         <div class="table-wrapper">
@@ -225,12 +255,11 @@
           </table>
           <div id="empty-state" class="empty-state">
             <i class="fas fa-inbox"></i>
-            <p>No expenses added yet. Start tracking your expenses!</p>
+            <p>No expenses added yet. Start tracking your spending.</p>
           </div>
         </div>
       </div>
 
-      <!-- Quick Tips -->
       <div id="tips-section" class="tips-section" style="display:none;">
         <h3 class="section-title"><i class="fas fa-lightbulb"></i> Smart Tips</h3>
         <div id="tips-container" class="tips-container"></div>
@@ -238,6 +267,9 @@
     </div>
   </div>
 
-  <script src="budget.js"></script>
+  <input id="import-file-input" type="file" accept="application/json" hidden />
+
+  <script src="budgetSystem.js?v=2"></script>
+  <script src="budget.js?v=2"></script>
 </body>
 </html>
